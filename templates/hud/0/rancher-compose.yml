@@ -1,0 +1,60 @@
+version: '2'
+catalog:
+  name: Bokbot HUD
+  version: 0.0.0
+  description: |
+    Bokbot Camera HUD
+  minimum_rancher_version: v0.56.0
+  maintainer: "Josh Cox <josh@webhosting.coop>"
+  uuid: bokbot-hud-0
+  questions:
+    - variable: "bokbot_host"
+      description: "bokbot hostname (without uri scheme http:// or https://)"
+      label: "Hostname:"
+      required: true
+      default: "bokbot"
+      type: "string"
+    - variable: "bokbot_domain"
+      description: "bokbot hostname (without uri scheme http:// or https://)"
+      label: "Domain:"
+      required: true
+      default: ""
+      type: "string"
+    - variable: "CAM_HOST"
+      description: "Camera Hostname or IP"
+      label: "host"
+      required: true
+      default: ""
+      type: "string"
+    - variable: "CAM_PORT"
+      description: "Camera port"
+      label: "port"
+      required: true
+      default: "80"
+      type: "string"
+    - variable: "TAG"
+      description: "TAG"
+      label: "TAG"
+      required: true
+      default: "latest"
+      type: "string"
+    - variable: host_label
+      label: "Host Label to run bokbot"
+      description: |
+        Host label to use as bokbot 'value' tag.
+        Example: 'bokbot=true'
+      required: false
+      default: "private=true"
+      type: "string"
+
+services:
+  bokbot:
+    scale: 1
+    health_check:
+      port: 80
+      interval: 30000
+      initializing_timeout: 360000
+      unhealthy_threshold: 9
+      strategy: none
+      healthy_threshold: 2
+      response_timeout: 9000

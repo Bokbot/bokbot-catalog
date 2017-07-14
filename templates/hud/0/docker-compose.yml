@@ -1,0 +1,16 @@
+version: '2'
+services:
+  bokbot:
+    image: webhostingcoopteam/bokbot:${TAG}
+    labels:
+      io.rancher.scheduler.affinity:host_label: ${host_label}
+      io.rancher.container.pull_image: always
+      traefik.enable: true
+      traefik.acme: true
+      traefik.alias: ${bokbot_host}
+      traefik.domain: ${bokbot_domain}
+      traefik.port: 80
+    hostname: ${bokbot_host}.${bokbot_domain}
+    environment:
+      CAM_HOST: ${CAM_HOST}
+      CAM_PORT: ${CAM_PORT}
